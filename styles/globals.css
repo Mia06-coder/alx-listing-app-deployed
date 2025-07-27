@@ -1,1 +1,16 @@
 @import "tailwindcss";
+@import "tailwind-scrollbar-hide/v4";
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
+
+body {
+  font-family: "Quicksand", sans-serif;
+}
+
+/* in your global CSS */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

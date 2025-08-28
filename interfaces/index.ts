@@ -20,6 +20,7 @@ export interface PropertyProps {
   name: string;
   address: Address;
   rating: number;
+  description: string;
   category: string[];
   price: number;
   offers: Offers;
@@ -44,4 +45,26 @@ export interface PillProps {
   icon?: React.ReactNode;
   selected?: boolean;
   onClick: (title: string) => void;
+}
+
+export interface Review {
+  id: string;
+  name: string;
+  avatar: string;
+  memberSince: string;
+  date: string;
+  tripType: string;
+  comment: string;
+}
+
+export interface Amenity {
+  label: string;
+  icon: AmenityIcon;
+}
+
+export interface AmenityIcon {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
 }

@@ -57,7 +57,7 @@ const PropertyCard: React.FC<Props> = ({ property }) => {
         <div className="flex gap-3  flex-wrap border border-[#E9E9E9] px-3 py-2 md:px-6 md:py-2.5 rounded-full w-fit">
           <div className="flex items-center gap-2  text-[14px]/[1.5] md:text-[16px] lg:text-[13px] font-medium">
             <Image
-              src="\assets\svg\icons\bed 1.svg"
+              src="\assets\svg\icons\bed.svg"
               alt=""
               width="20"
               height="20"
@@ -67,7 +67,7 @@ const PropertyCard: React.FC<Props> = ({ property }) => {
           </div>
           <div className="flex items-center gap-2  text-[14px]/[1.5] md:text-[16px] lg:text-[13px] font-medium">
             <Image
-              src="\assets\svg\icons\bathtub 1.svg"
+              src="\assets\svg\icons\bathtub.svg"
               alt=""
               width="20"
               height="20"
@@ -77,7 +77,7 @@ const PropertyCard: React.FC<Props> = ({ property }) => {
           </div>
           <div className="flex items-center gap-2  text-[14px]/[1.5] md:text-[16px] lg:text-[13px] font-medium">
             <Image
-              src="\assets\svg\icons\people 1.svg"
+              src="\assets\svg\icons\people.svg"
               alt=""
               width="20"
               height="20"

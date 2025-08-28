@@ -1,16 +1,21 @@
+import Image from "next/image";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const OrderSummary: React.FC<{ bookingDetails: any }> = ({
   bookingDetails,
 }) => (
-  <div className="bg-white p-6 shadow-md rounded-lg">
+  <div className="bg-white p-6 shadow-md rounded-lg h-max">
     <h2 className="text-xl font-semibold">Review Order Details</h2>
-    <div className="flex items-center mt-4">
-      <img
-        src="https://example.com/property.jpg"
-        alt="Property"
-        className="w-32 h-32 object-cover rounded-md"
-      />
-      <div className="ml-4">
+    <div className="md:flex gap-4 items-center mt-4">
+      <div className="relative w-32 h-32 rounded-md overflow-hidden">
+        <Image
+          src="/assets/images/listing-images/List_1.png"
+          alt="Property"
+          fill
+          className="object-cover absolute"
+        />
+      </div>
+      <div>
         <h3 className="text-lg font-semibold">{bookingDetails.propertyName}</h3>
         <p className="text-sm text-gray-500">4.76 (345 reviews)</p>
         <p className="text-sm text-gray-500">

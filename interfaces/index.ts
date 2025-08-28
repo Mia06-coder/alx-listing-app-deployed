@@ -16,6 +16,7 @@ export interface LayoutProps {
 }
 
 export interface PropertyProps {
+  id: string | number;
   name: string;
   address: Address;
   rating: number;

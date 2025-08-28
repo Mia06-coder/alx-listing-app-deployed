@@ -1,10 +1,12 @@
 import Head from "next/head";
 import Button from "../components/common/Button";
-import { FILTER_PILLS, HERO_IMAGE, PROPERTYLISTINGSAMPLE } from "@/constants";
-import PropertyCard from "@/components/common/PropertyCard";
+import { FILTER_PILLS, HERO_IMAGE } from "@/constants";
+import PropertyCard from "@/components/property/PropertyCard";
 import Pill from "@/components/common/Pill";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import axios from "axios";
+import { PropertyProps } from "@/interfaces";
 
 export default function Home() {
   const [selectedFilters, setSelectedFilters] = useState<string[]>(["All"]);
@@ -22,6 +24,27 @@ export default function Home() {
       });
     }
   };
+
+  const [properties, setProperties] = useState<PropertyProps[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const response = await axios.get("/api/properties");
+        setProperties(response.data);
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProperties();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
     <>
       <Head>
@@ -125,8 +148,9 @@ export default function Home() {
 
         {/* HERO */}
         <section
-          className={`relative bg-[url(${HERO_IMAGE})] bg-cover bg-center w-full h-75 lg:h-105 xl:h-120 flex items-center justify-center text-white px-4 rounded-xl md:rounded-[27px]
+          className={`relative bg-cover bg-center w-full h-75 lg:h-105 xl:h-120 flex items-center justify-center text-white px-4 rounded-xl md:rounded-[27px]
           `}
+          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
         >
           <div className=" text-center w-2/3 text-white">
             <h1 className="text-[28px]/7.5 font-semibold md:text-[40px]/13 lg:text-[68px]/18  xl:text-[94px]/25 text-shadow-[0_4_19_rgb(0_0_0_/_0.25)]">
@@ -138,11 +162,11 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-8 px-0 grid gap-16 md:gap-x-9 xl:gap-x-8 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 ">
-          {PROPERTYLISTINGSAMPLE.map((property, index) => (
-            <PropertyCard key={index} property={property} />
+        <div className="py-8 px-0 grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 ">
+          {properties.map((property) => (
+            <PropertyCard key={property.id} property={property} />
           ))}
-        </section>
+        </div>
 
         <div className="flex flex-col gap-4.5 items-center mt-16 mb-16">
           {" "}

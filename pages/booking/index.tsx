@@ -54,7 +54,7 @@ export default function BookingPage() {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid sm:grid-cols-2 gap-6">
         <div className="bg-white p-6 shadow-md rounded-lg">
           <h2 className="text-xl font-semibold">Contact Detail</h2>
 

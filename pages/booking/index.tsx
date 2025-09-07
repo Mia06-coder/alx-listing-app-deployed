@@ -3,6 +3,7 @@ import CancellationPolicy from "@/components/booking/CancellationPolicy";
 import OrderSummary from "@/components/booking/OrderSummary";
 import axios from "axios";
 import { FormEvent, useState } from "react";
+import type { BookingFormData } from "@/types/booking";
 
 export default function BookingPage() {
   const bookingDetails = {
@@ -13,7 +14,7 @@ export default function BookingPage() {
     startDate: "24 August 2024",
   };
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<BookingFormData>({
     firstName: "",
     lastName: "",
     email: "",
@@ -21,7 +22,11 @@ export default function BookingPage() {
     cardNumber: "",
     expirationDate: "",
     cvv: "",
-    billingAddress: "",
+    streetAdress: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -33,7 +38,10 @@ export default function BookingPage() {
     setError(null);
 
     try {
-      const response = await axios.post("/api/bookings", formData);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/bookings`,
+        formData
+      );
       alert("Booking confirmed!");
       console.log(`Booking confirmed! ID: ${response.data}`);
     } catch (error) {
@@ -52,7 +60,8 @@ export default function BookingPage() {
 
           <form onSubmit={handleSubmit}>
             {/* Form fields for booking details */}
-            <BookingForm />
+            <BookingForm formData={formData} setFormData={setFormData} />
+
             <button
               type="submit"
               disabled={loading}

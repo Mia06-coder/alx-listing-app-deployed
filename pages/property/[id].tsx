@@ -1,4 +1,3 @@
-import { REVIEWS } from "@/constants/index";
 import { useRouter } from "next/router";
 import PropertyDetail from "@/components/property/PropertyDetail";
 import BookingSection from "@/components/property/BookingSection";
@@ -18,7 +17,9 @@ export default function PropertyDetailPage() {
     const fetchProperty = async () => {
       if (!id) return;
       try {
-        const response = await axios.get(`/api/properties/${id}`);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/properties/${id}`
+        );
         setProperty(response.data);
       } catch (error) {
         setError("Failed to fetch property details.");
@@ -43,7 +44,7 @@ export default function PropertyDetailPage() {
     <div className="container mx-auto p-6 text-[var(--color-secondary-dark)]">
       <PropertyDetail
         property={property}
-        reviews={<ReviewsSection reviews={REVIEWS} rating={property.rating} />}
+        reviews={<ReviewsSection propertyId={property.name} />}
         booking={
           <BookingSection price={property.price} discount={property.discount} />
         }

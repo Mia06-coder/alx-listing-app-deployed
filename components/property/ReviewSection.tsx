@@ -1,15 +1,16 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Review } from "../../interfaces";
 
 const ReviewSection = ({ propertyId }: { propertyId: string }) => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(
-          `/api/properties/${propertyId}/reviews`
+        const response = await axios.get<Review[]>(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/properties/${propertyId}/reviews`
         );
         setReviews(response.data);
       } catch (error) {

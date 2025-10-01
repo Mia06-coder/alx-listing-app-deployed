@@ -1,25 +1,28 @@
-import { PropertyProps } from "@/interfaces";
+// constants/index.ts
+import { PropertyProps } from "@/interfaces/index";
 
 export const PROPERTYLISTINGSAMPLE: PropertyProps[] = [
   {
-    name: "Villa Ocean Breeze",
-    address: { state: "Seminyak", city: "Bali", country: "Indonesia" },
-    rating: 4.89,
-    category: ["Luxury Villa", "Pool", "Free Parking"],
-    price: 3200,
-    offers: { bed: "3", shower: "3", occupants: "4-6" },
-    image: "https://example.com/image1.jpg",
-    discount: "",
+    name: "Ocean View Villa",
+    rating: 5,
+    address: { city: "Kigali", country: "Rwanda" },
+    image: "/villa.jpg",
+    description: "A beautiful villa with amazing views of the ocean.",
+    category: ["WiFi", "Swimming Pool", "Air Conditioning"],
+    price: 120,
+    reviews: [
+      {
+        name: "John Doe",
+        avatar: "/avatar1.jpg",
+        rating: 5,
+        comment: "Amazing place! Loved it.",
+      },
+      {
+        name: "Jane Smith",
+        avatar: "/avatar2.jpg",
+        rating: 4,
+        comment: "Great stay but could improve on cleanliness.",
+      },
+    ],
   },
-  {
-    name: "Mountain Escape Chalet",
-    address: { state: "Aspen", city: "Colorado", country: "USA" },
-    rating: 4.7,
-    category: ["Mountain View", "Fireplace", "Self Checkin"],
-    price: 1800,
-    offers: { bed: "4", shower: "2", occupants: "5-7" },
-    image: "https://example.com/image2.jpg",
-    discount: "30",
-  },
-  // Add the rest of the 20+ sample properties as shown in your instructions
 ];

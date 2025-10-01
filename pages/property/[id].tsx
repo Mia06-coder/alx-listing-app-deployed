@@ -1,26 +1,54 @@
-// pages/property/[id].tsx
-import { PROPERTYLISTINGSAMPLE } from "@/constants/index";
 import { useRouter } from "next/router";
 import PropertyDetail from "@/components/property/PropertyDetail";
 import BookingSection from "@/components/property/BookingSection";
-import ReviewSection from "@/components/property/ReviewSection";
+import ReviewsSection from "@/components/property/ReviewSection";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { PropertyProps } from "@/interfaces";
 
-export default function PropertyPage() {
+export default function PropertyDetailPage() {
   const router = useRouter();
   const { id } = router.query;
-  const property = PROPERTYLISTINGSAMPLE.find((item) => item.name === id);
+  const [property, setProperty] = useState<PropertyProps>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!property) return <p>Property not found</p>;
+  useEffect(() => {
+    const fetchProperty = async () => {
+      if (!id) return;
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/properties/${id}`
+        );
+        setProperty(response.data);
+      } catch (error) {
+        setError("Failed to fetch property details.");
+        console.error("Error fetching property details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperty();
+  }, [id]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) return <p className="text-red-500">{error}</p>;
+
+  if (!property) return <p className="p-6">Property not found</p>;
 
   return (
-    <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
-      <div className="md:col-span-2">
-        <PropertyDetail property={property} />
-        <ReviewSection reviews={property.reviews} />
-      </div>
-      <div>
-        <BookingSection price={property.price} />
-      </div>
+    <div className="container mx-auto p-6 text-[var(--color-secondary-dark)]">
+      <PropertyDetail
+        property={property}
+        reviews={<ReviewsSection propertyId={property.name} />}
+        booking={
+          <BookingSection price={property.price} discount={property.discount} />
+        }
+      />
     </div>
   );
 }
